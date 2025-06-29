@@ -3,26 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'gap.dart';
 
-class Clipboard_section extends StatelessWidget {
-  const Clipboard_section({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          width: double.infinity,
-          alignment: Alignment.centerLeft,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text("Clipboard", style: TextStyle(fontSize: 20))],
-          ),
-        ),
-
-      ],
-    );
-  }
-}
 
 class ClipboardContactListTile extends StatelessWidget {
   const ClipboardContactListTile({super.key});
