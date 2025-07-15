@@ -22,6 +22,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "clipboard_content": MessageLookupByLibrary.simpleMessage("الحافظة "),
+    "enter_phone_number": MessageLookupByLibrary.simpleMessage(
+      "ادخل رقم الهاتف",
+    ),
+    "failed_to_read_clipboard": MessageLookupByLibrary.simpleMessage(
+      "فشل قراءة الحافظة",
+    ),
     "ziad": MessageLookupByLibrary.simpleMessage("زياد"),
   };
 }

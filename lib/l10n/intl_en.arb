@@ -1,3 +1,6 @@
 {
-  "ziad": "ziad"
+  "ziad": "ziad",
+  "enter_phone_number": "Enter Phone Number",
+  "clipboard_content": "Clipboard Content",
+  "failed_to_read_clipboard": "Failed to read clipboard"
 }

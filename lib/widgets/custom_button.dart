@@ -7,14 +7,15 @@ final GestureTapCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-  return    InkWell(
-   onTap: onPressed,
+  return InkWell(
+    customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    onTap: onPressed,
     child: Container(
       width: double.infinity,
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
-        color: Colors.green,
+       color: Colors.green,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Text(

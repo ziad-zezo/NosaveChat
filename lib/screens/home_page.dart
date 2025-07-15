@@ -1,151 +1,261 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hive/hive.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:quick_chat/hive/chat_history.dart';
-
-import '../defalut_values.dart';
-import '../widgets/clipboard_contact_list_tile.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quick_chat/helper_files/boxes.dart';
+import 'package:quick_chat/cubit/chat_history_cubit.dart';
+import 'package:quick_chat/helper_files/phone_utils.dart';
+import 'package:quick_chat/widgets/message_text_field.dart';
+import '../helper_files/default_values.dart';
+import '../generated/l10n.dart';
+import '../widgets/clipboard_container.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/gap.dart';
+import '../widgets/phone_number_text_field.dart';
 import '../widgets/recent_numbers_list_tile.dart';
 import '../widgets/recent_numbers_section_header.dart';
 import '../widgets/section_header.dart';
 
-class HomePage extends StatelessWidget {
-   HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.navigateToHistoryPage});
+  final Function(int) navigateToHistoryPage;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   final FocusNode _numberFocusNode = FocusNode();
-  var chatHistoryBox=Hive.box<ChatHistory>('chat_history');
-TextEditingController _phoneNumberController=TextEditingController();
-TextEditingController _messageController=TextEditingController();
+  bool _isClipboardPhoneFound = false;
+  String? _clipboardText;
+
+  final selectedCountryCode = ValueNotifier<String>(userSettings.countryCode);
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
   final FocusNode _messageFocusNode = FocusNode();
 
+  @override
+  void initState() {
+    super.initState();
+    context.read<ChatHistoryCubit>().loadChatHistory();
+    _checkClipboard();
+    _setCountryCode();
+  }
+
+  @override
+  void dispose() {
+    _numberFocusNode.dispose();
+    _messageFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-   return GestureDetector(
-     onTap: () => _unfocus(),
-     child: SingleChildScrollView(
-       child: Padding(
-         padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-         child: Column(
-           children: [
-             //clipboard container
-            SectionHeader(title: "Clipboard"),
-VerticalGap(gap: 20),
-             //contacts container
-            ClipboardContactListTile(),
-            VerticalGap(gap: 30),
-             SectionHeader(title: "Enter Number"),
-             VerticalGap(gap: 20),
-             //TextField
+    super.build(context);
+    return GestureDetector(
+      onTap: () => _unfocus(),
+      child: RefreshIndicator(
+        onRefresh: _refresh,
+        color: Colors.green,
+        displacement: 0,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+          child: ListView(
+            children: [
+              //clipboard container
+              if (_isClipboardPhoneFound)
+                ClipboardContainer(
+                  onTap: () {
+                    PhoneUtils.chat(
+                      context: context,
+                      phoneNumber: _clipboardText!,
+                      countryCode: selectedCountryCode.value,
+                    );
+                    //   _chat(phoneNumber: _clipboardText!);
+                  },
+                  onLongPress: () {
+                    _phoneNumberController.text = _clipboardText!;
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text("You can edit now")));
+                    _numberFocusNode.requestFocus();
+                  },
+                  phoneNumber: _clipboardText!,
+                  trailing: InkWell(
+                    onTap: () => setState(() => _isClipboardPhoneFound = false),
+                    child: Icon(
+                      Icons.remove_circle_outline,
+                      color: Colors.red.shade500,
+                    ),
+                  ),
+                ),
 
-                 IntlPhoneField(
-controller: _phoneNumberController,
-                   focusNode: _numberFocusNode,
-                   //  controller: controller,
-                   //  validator: validator,
-
-                   decoration: InputDecoration(
-                     suffixIcon: Icon(FontAwesomeIcons.solidFileImage),
-                     contentPadding: const EdgeInsets.symmetric(
-                       vertical: 16,
-                       horizontal: 16,
-                     ),
-                     border: OutlineInputBorder(
-                       borderRadius: BorderRadius.circular(12),
-                       borderSide: const BorderSide(color: Colors.grey),
-                     ),
-                     enabledBorder: OutlineInputBorder(
-                       borderRadius: BorderRadius.circular(12),
-                       borderSide: const BorderSide(color: Colors.grey),
-                     ),
-                     focusedBorder: OutlineInputBorder(
-                       borderRadius: BorderRadius.circular(12),
-                       borderSide: BorderSide(color: Colors.green),
-                     ),
-                     filled: true,
-
-                     fillColor: Color(0x0b008000),
-                     hintText: 'Phone Number',
-                     hintStyle: TextStyle(color: Colors.grey[500]),
-                   ),
-                   disableLengthCheck: true,
-                   initialCountryCode: 'US',
-                   dropdownIcon: const Icon(
-                     Icons.arrow_drop_down,
-                     color: Colors.grey,
-                   ),
-                   style: const TextStyle(fontSize: 16, ),
-                   cursorColor: Colors.green,
-
-                   dropdownTextStyle: const TextStyle(
-                     fontSize: 16,
-                     //color: Colors.black87,
-                   ),
-                   onChanged: (phone) {
-
-                   },
-                 ),
-
-
-             //TextField
-             // --------------------------
-             VerticalGap(gap: 20),
-             //*message TextField
-             TextField(
-               controller: _messageController,
-
-               focusNode: _messageFocusNode,
-               keyboardType: TextInputType.multiline,
-               textInputAction: TextInputAction.newline,
-               maxLines: 2,
-               style: TextStyle(fontSize: 18),
-               decoration: InputDecoration(
-                 hint: Text("Enter your message (optional)",style: TextStyle(color: Colors.grey[500],fontSize: 17),),
-                 hintStyle: TextStyle(color: Colors.grey[500]),
-                 contentPadding: const EdgeInsets.symmetric(
-                   vertical: 16,
-                   horizontal: 16,
-                 ),
-                 border: OutlineInputBorder(
-                   borderRadius: BorderRadius.circular(12),
-                   borderSide: const BorderSide(color: Colors.grey),
-                 ),
-                 enabledBorder: OutlineInputBorder(
-                   borderRadius: BorderRadius.circular(12),
-                   borderSide: const BorderSide(color: Colors.grey),
-                 ),
-                 focusedBorder: OutlineInputBorder(
-                   borderRadius: BorderRadius.circular(12),
-                   borderSide: BorderSide(color: Colors.green),
-                 ),
-                 filled: true,
-
-                 fillColor: Color(0x0b008000),
-               ),
-             ),
-             //*message TextField
-
-             VerticalGap(gap: 20),
-             //Chat Button
-             CustomButton(onPressed: ()async{
-               await chatHistoryBox.add(ChatHistory(message: _messageController.text,user: _phoneNumberController.text,timestamp: DateTime.now()));
-
-             },),
-             //Chat Button
-             VerticalGap(gap: 20),
-             RecentNumbersSectionHeader(),
-             VerticalGap(gap: 20),
-
-           ],
-         ),
-       ),
-     ),
-   );
+              SectionHeader(title: S.of(context).enter_phone_number),
+              VerticalGap(gap: 20),
+              //*Phone TextField
+              ValueListenableBuilder<String>(
+                valueListenable: selectedCountryCode,
+                builder: (context, value, _) {
+                  return PhoneNumberTextField(
+                    phoneNumberController: _phoneNumberController,
+                    numberFocusNode: _numberFocusNode,
+                    countryCode: userSettings.countryCode,
+                    onCountryChanged: (newValue) {
+                      selectedCountryCode.value = newValue;
+                    },
+                  );
+                },
+              ),
+              VerticalGap(gap: 20),
+              MessageTextField(
+                messageController: _messageController,
+                messageFocusNode: _messageFocusNode,
+                suffixIcon: IconButton(
+                  onPressed: () => _messageController.clear(),
+                  icon: Icon(Icons.clear),
+                ),
+              ),
+              VerticalGap(gap: 20),
+              //*Chat Button
+              ValueListenableBuilder(
+                valueListenable: selectedCountryCode,
+                builder: (context, value, child) {
+                  return CustomButton(
+                    onPressed: () {
+                      PhoneUtils.chat(
+                        context: context,
+                        phoneNumber: _phoneNumberController.text,
+                        message: _messageController.text,
+                        countryCode: selectedCountryCode.value,
+                      );
+                    },
+                  );
+                  //_chat);
+                },
+              ),
+              BlocBuilder<ChatHistoryCubit, ChatHistoryState>(
+                builder: (context, state) {
+                  if (state is ChatHistoryLoading) {
+                    return CircularProgressIndicator();
+                  } else if (state is ChatHistoryLoaded) {
+                    final displayedChats = state.chats.take(2).toList();
+                    return Column(
+                      children: [
+                        VerticalGap(gap: 30),
+                        Divider(),
+                        VerticalGap(gap: 20),
+                        RecentNumbersSectionHeader(
+                          onTap: () {
+                            _unfocus();
+                            widget.navigateToHistoryPage(1);
+                          },
+                        ),
+                        ListView(
+                          shrinkWrap: true, // Takes only the space it needs
+                          physics:
+                              NeverScrollableScrollPhysics(), // Disables scrolling
+                          children: displayedChats
+                              .map(
+                                (chat) =>
+                                    RecentNumberListTile(chatHistory: chat),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return SizedBox.shrink();
+                  }
+                },
+              ),
+              VerticalGap(gap: 20),
+            ],
+          ),
+        ),
+      ),
+    );
   }
-   void _unfocus() {
-     _numberFocusNode.unfocus();
-     _messageFocusNode.unfocus();
-   }
+
+  void _unfocus() {
+    _numberFocusNode.unfocus();
+    _messageFocusNode.unfocus();
+  }
+
+  //!load clipboard
+  Future<void> _checkClipboard() async {
+    String? newClipboardText;
+    bool foundPhone = false;
+    try {
+      final clipboardData = await Clipboard.getData(Clipboard.kTextPlain);
+      final clipboardText = clipboardData?.text;
+      if (clipboardData != null &&
+          clipboardText != null &&
+          clipboardText.isNotEmpty &&
+          PhoneUtils.isValidPhoneNumber(clipboardText)) {
+        // Check for non-empty
+        newClipboardText = clipboardData.text;
+        foundPhone = true; // Set this based on actual validation
+        if (mounted) {
+          // Check if the widget is still in the tree
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "${S.of(context).clipboard_content}: $newClipboardText",
+              ),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (!mounted) return;
+      newClipboardText = S
+          .of(context)
+          .failed_to_read_clipboard; // Use localized string
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(newClipboardText),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _clipboardText = newClipboardText;
+          _isClipboardPhoneFound = foundPhone;
+        });
+      }
+    }
+  }
+
+  void _setCountryCode() {
+    selectedCountryCode.value = CountryService()
+        .findByCode(userSettings.countryCode)!
+        .phoneCode;
+  }
+
+  Future<void> _chat({String? phoneNumber}) async {
+    final String? whatsappLink = await PhoneUtils.launchWhatsApp(
+      context: context,
+      phone: phoneNumber ?? _phoneNumberController.text,
+      message: _messageController.text,
+      countryCode: selectedCountryCode.value,
+    );
+
+    if (!mounted || whatsappLink == null) return;
+    context.read<ChatHistoryCubit>().addChatEntry(
+      phone: phoneNumber ?? _phoneNumberController.text,
+      message: _messageController.text,
+      whatsappLink: whatsappLink,
+    );
+  }
+
+  Future<void> _refresh() async {
+    _checkClipboard();
+  }
 }

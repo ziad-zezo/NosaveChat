@@ -58,6 +58,36 @@ class S {
   String get ziad {
     return Intl.message('ziad', name: 'ziad', desc: '', args: []);
   }
+
+  /// `Enter Phone Number`
+  String get enter_phone_number {
+    return Intl.message(
+      'Enter Phone Number',
+      name: 'enter_phone_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clipboard Content`
+  String get clipboard_content {
+    return Intl.message(
+      'Clipboard Content',
+      name: 'clipboard_content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to read clipboard`
+  String get failed_to_read_clipboard {
+    return Intl.message(
+      'Failed to read clipboard',
+      name: 'failed_to_read_clipboard',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

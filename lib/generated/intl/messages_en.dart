@@ -22,6 +22,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "clipboard_content": MessageLookupByLibrary.simpleMessage(
+      "Clipboard Content",
+    ),
+    "enter_phone_number": MessageLookupByLibrary.simpleMessage(
+      "Enter Phone Number",
+    ),
+    "failed_to_read_clipboard": MessageLookupByLibrary.simpleMessage(
+      "Failed to read clipboard",
+    ),
     "ziad": MessageLookupByLibrary.simpleMessage("ziad"),
   };
 }
