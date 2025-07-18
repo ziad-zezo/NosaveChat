@@ -4,6 +4,13 @@ part 'app_settings.g.dart';
 
 @HiveType(typeId: 1)
 class AppSettings extends HiveObject {
+
+  AppSettings({
+    required this.languageCode,
+    required this.isDarkMode,
+    required this.countryCode,
+    required this.saveRecentNumber,
+  });
   @HiveField(0)
   final String languageCode; // 'en' or 'ar'
 
@@ -15,13 +22,6 @@ class AppSettings extends HiveObject {
 
   @HiveField(3)
   final bool saveRecentNumber;
-
-  AppSettings({
-    required this.languageCode,
-    required this.isDarkMode,
-    required this.countryCode,
-    required this.saveRecentNumber,
-  });
 
   AppSettings copyWith({
     String? languageCode,

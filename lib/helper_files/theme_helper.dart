@@ -27,7 +27,7 @@ static ThemeData getThemeDate({Brightness brightness = Brightness.light}){
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: Colors.green),
+        borderSide: const BorderSide(color: Colors.green),
       ),
     ),
   );

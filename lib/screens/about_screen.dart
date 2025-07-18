@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quick_chat/generated/l10n.dart';
 import 'package:quick_chat/widgets/custom_tooltip.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -81,7 +80,7 @@ class _AboutScreenState extends State<AboutScreen>
           resizeToAvoidBottomInset: false,
           body: Container(
             height: double.infinity,
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(),
             child: SafeArea(
               child: Stack(
                 children: [
@@ -104,14 +103,14 @@ class _AboutScreenState extends State<AboutScreen>
                                     child: Stack(
                                       alignment: Alignment.center,
                                       children: [
-                                        CircleAvatar(
+                                        const CircleAvatar(
                                           radius: 88,
                                           backgroundColor: Colors.green,
                                         ),
                                         CustomTooltip(
-                                          message: ("elzooz"),
+                                          message: ('elzooz'),
                                           //S.of(context).elzoz,
-                                          backgroundColor: Color.fromARGB(
+                                          backgroundColor: const Color.fromARGB(
                                             90,
                                             33,
                                             243,
@@ -211,6 +210,7 @@ class _AboutScreenState extends State<AboutScreen>
                                         ),
                                         child: _ContactTile(
                                           icon: Icons.phone,
+                                          // ignore: avoid_redundant_argument_values
                                           color: Colors.white,
                                           text: '+20 155 408 3601',
                                           onTap: () => _launchUrl(
@@ -486,7 +486,7 @@ class _SocialButtonState extends State<_SocialButton>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(color: Colors.green, width: 0.7),
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               colors: [
                 Color(0x33FFFFFF), // White with 20% opacity (0.2)
                 Color(0x1AFFFFFF), // White with 10% opacity (0.1)

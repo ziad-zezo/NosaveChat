@@ -1,13 +1,10 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quick_chat/helper_files/boxes.dart';
-import 'package:quick_chat/helper_files/phone_utils.dart';
 import 'package:quick_chat/screens/about_screen.dart';
 import 'package:quick_chat/screens/home_page.dart';
 import 'package:quick_chat/screens/settings_page.dart';
-import 'history_page.dart';
+import 'package:quick_chat/screens/history_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.toggleTheme});
@@ -34,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       HistoryPage(key: UniqueKey()),
       SettingsPage(key: UniqueKey(), toggleTheme: widget.toggleTheme),
-      Center(key: UniqueKey(), child: Text("Info")),
+      Center(key: UniqueKey(), child: const Text('Info')),
     ];
   }
 
@@ -49,28 +46,28 @@ class _HomeScreenState extends State<HomeScreen> {
         extendBody: true,
         appBar: AppBar(
           scrolledUnderElevation: 0,
-          title: const Text("Quick Chat"),
+          title: const Text('Quick Chat'),
           centerTitle: true,
           elevation: 0,
           leading: IconButton(
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => AboutScreen()),
+              MaterialPageRoute(builder: (_) => const AboutScreen()),
             ),
-            icon: Icon(CupertinoIcons.info_circle_fill),
+            icon: const Icon(CupertinoIcons.info_circle_fill),
           ),
           actions: [
             IconButton(
               onPressed: widget.toggleTheme,
               icon: brightness == Brightness.dark
-                  ? Icon(CupertinoIcons.moon_fill)
-                  : Icon(CupertinoIcons.sun_min_fill),
+                  ? const Icon(CupertinoIcons.moon_fill)
+                  : const Icon(CupertinoIcons.sun_min_fill),
             ),
           ],
         ),
         body: PageView.builder(
           controller: pageController,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: 3,
           itemBuilder: (context, index) => _pages[index],
         ),
@@ -88,18 +85,18 @@ class _HomeScreenState extends State<HomeScreen> {
           unselectedItemColor: Colors.grey,
           showUnselectedLabels: false,
           showSelectedLabels: false,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.house),
-              label: "Home",
+              label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.clockRotateLeft),
-              label: "History",
+              label: 'History',
             ),
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.gear),
-              label: "Settings",
+              label: 'Settings',
             ),
           ],
         ),
@@ -118,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
     pageController.animateToPage(
       page,
       curve: Curves.linear,
-      duration: Duration(milliseconds: 250),
+      duration: const Duration(milliseconds: 250),
     );
   }
 

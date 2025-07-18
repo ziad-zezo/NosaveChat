@@ -4,9 +4,9 @@ part of 'chat_history_cubit.dart';
 abstract class ChatHistoryState {}
 
 class ChatHistoryLoaded extends ChatHistoryState {
-  final List<ChatHistory> chats ;
 
   ChatHistoryLoaded({required this.chats});
+  final List<ChatHistory> chats ;
 }
 class ChatHistoryEmpty extends ChatHistoryState {}
 class ChatHistoryLoading extends ChatHistoryState {}

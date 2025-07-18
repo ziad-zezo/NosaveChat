@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:quick_chat/helper_files/phone_utils.dart';
 import 'package:quick_chat/hive/chat_history.dart';
-import 'custom_tooltip.dart';
+import 'package:quick_chat/widgets/custom_tooltip.dart';
 
 class RecentNumberListTile extends StatelessWidget {
   const RecentNumberListTile({
@@ -14,7 +14,7 @@ class RecentNumberListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTooltip(
-      message: chatHistory.message.isEmpty?"No Message":"Message: ${chatHistory.message}",
+      message: chatHistory.message.isEmpty?'No Message':'Message: ${chatHistory.message}',
 
       child: Padding(
         padding: const EdgeInsets.only(top: 8),
@@ -26,7 +26,7 @@ class RecentNumberListTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             side: const BorderSide(color: Colors.green),
           ),
-          leading: Icon(
+          leading: const Icon(
             FontAwesomeIcons.whatsapp,
             size: 32,
             color: Colors.green,

@@ -18,8 +18,8 @@ final GestureTapCallback onPressed;
        color: Colors.green,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Text(
-        "Start Chat",
+      child: const Text(
+        'Start Chat',
         style: TextStyle(fontSize: 16, color: Colors.black),
       ),
     ),

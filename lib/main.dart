@@ -7,10 +7,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:quick_chat/cubit/chat_history_cubit.dart';
 import 'package:quick_chat/helper_files/theme_helper.dart';
 import 'package:quick_chat/screens/home_screen.dart';
-import 'helper_files/boxes.dart';
-import 'generated/l10n.dart';
-import 'hive/app_settings.dart';
-import 'hive/chat_history.dart';
+import 'package:quick_chat/helper_files/boxes.dart';
+import 'package:quick_chat/generated/l10n.dart';
+import 'package:quick_chat/hive/app_settings.dart';
+import 'package:quick_chat/hive/chat_history.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -82,7 +82,7 @@ class _QuickChatState extends State<QuickChat> {
         //ThemeData.dark(),
         theme: ThemeHelper.getThemeDate(),
         themeMode: _themeMode,
-        localizationsDelegates: [
+        localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,

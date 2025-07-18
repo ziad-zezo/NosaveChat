@@ -9,13 +9,13 @@ final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
    return SectionHeader(
-     title: "Recent Numbers",
+     title: 'Recent Numbers',
      trailing: Padding(
        padding: const EdgeInsets.symmetric(horizontal: 8.0),
        child: InkWell(
          onTap:onTap,
-         child: Text(
-           "View All",
+         child: const Text(
+           'View All',
            style: TextStyle(
              fontSize: 14,
              color: Colors.green,

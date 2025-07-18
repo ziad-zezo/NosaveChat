@@ -54,17 +54,17 @@ class CustomSnackBar {
     required Color color,
   }) {
     return SnackBar(
-      duration: Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: 2500),
       elevation: 0,
       dismissDirection: DismissDirection.horizontal,
       behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
         side: BorderSide(color: color, width: 2),
       ),
       backgroundColor: Colors.black87,
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
       content: Row(
         children: [
           Padding(
@@ -73,7 +73,7 @@ class CustomSnackBar {
           ),
           Text(
             message,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               letterSpacing: 1.25,
               fontWeight: FontWeight.bold,

@@ -1,10 +1,10 @@
 import 'package:hive/hive.dart';
 
-import '../hive/app_settings.dart';
-import '../hive/chat_history.dart';
+import 'package:quick_chat/hive/app_settings.dart';
+import 'package:quick_chat/hive/chat_history.dart';
 
-var settingsBox = Hive.box<AppSettings>('settings');
+Box<AppSettings> settingsBox = Hive.box<AppSettings>('settings');
 
 AppSettings userSettings = settingsBox.get('user_settings')!;
 
-var chatBox = Hive.box<ChatHistory>('chat_history');
+Box<ChatHistory> chatBox = Hive.box<ChatHistory>('chat_history');

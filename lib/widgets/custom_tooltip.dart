@@ -30,11 +30,11 @@ class CustomTooltip extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(cornerRadius),
-        boxShadow: [
+        boxShadow:const [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black12,
             blurRadius: 8,
-            offset: const Offset(0, 4),
+            offset:  Offset(0, 4),
           ),
         ],
       ),

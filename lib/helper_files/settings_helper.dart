@@ -24,6 +24,7 @@ class SettingsHelper {
     final currentSettings = settingsBox.get('user_settings');
     return currentSettings!.saveRecentNumber;
   }
+  // ignore: avoid_positional_boolean_parameters
   static Future<void> setSaveRecentNumbers(bool value) async {
     final currentSettings = settingsBox.get('user_settings');
     await settingsBox.put(
@@ -35,6 +36,7 @@ class SettingsHelper {
     final currentSettings = settingsBox.get('user_settings');
     return currentSettings!.isDarkMode;
   }
+  // ignore: avoid_positional_boolean_parameters
   static Future<void> setDarkMode(bool value) async {
     final currentSettings = settingsBox.get('user_settings');
     await settingsBox.put(

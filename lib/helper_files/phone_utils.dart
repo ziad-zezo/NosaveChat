@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_chat/helper_files/boxes.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../cubit/chat_history_cubit.dart';
-import 'custom_snack_bar.dart';
+import 'package:quick_chat/cubit/chat_history_cubit.dart';
+import 'package:quick_chat/helper_files/custom_snack_bar.dart';
 
 class PhoneUtils {
   static String cleanPhoneNumber(String phone) {
@@ -54,7 +54,7 @@ class PhoneUtils {
       return urlParsed.toString();
     } catch (e) {
       if (context.mounted) {
-        CustomSnackBar.showErrorSnackBar(context,message:  "Failed to launch WhatsApp");
+        CustomSnackBar.showErrorSnackBar(context,message:  'Failed to launch WhatsApp');
 
       }
       }

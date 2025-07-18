@@ -17,10 +17,10 @@ class ChatHistoryCubit extends Cubit<ChatHistoryState> {
       emit(ChatHistoryEmpty());
       return;
     }
-    List<ChatHistory> chats = [];
+    final List<ChatHistory> chats = [];
 
     //load chats from box
-    for (var chat in _chatHistoryBox.values) {
+    for (final chat in _chatHistoryBox.values) {
       chats.add(chat);
     }
     // Sort chats by timestamp in descending order (newest first)

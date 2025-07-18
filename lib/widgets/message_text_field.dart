@@ -19,10 +19,10 @@ class MessageTextField extends StatelessWidget {
       keyboardType: TextInputType.multiline,
       textInputAction: TextInputAction.newline,
       maxLines: 2,
-      style: TextStyle(fontSize: 18),
+      style: const TextStyle(fontSize: 18),
       decoration: InputDecoration(
         hint: Text(
-          "Enter your message (optional)",
+          'Enter your message (optional)',
           style: TextStyle(color: Colors.grey[500], fontSize: 17),
         ),
         hintStyle: TextStyle(color: Colors.grey[500]),
@@ -38,12 +38,12 @@ class MessageTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.green),
+          borderSide: const BorderSide(color: Colors.green),
         ),
         filled: true,
-        fillColor: Color(0x0b008000),
+        fillColor: const Color(0x0b008000),
       ),
-      autofillHints: ["ziad", "mohamed"],
+      autofillHints: const ['ziad', 'mohamed'],
     );
   }
 }

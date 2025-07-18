@@ -4,6 +4,14 @@ part 'chat_history.g.dart'; // Needed for the generated file
 
 @HiveType(typeId: 0)
 class ChatHistory extends HiveObject {
+
+  ChatHistory({
+    required this.phone,
+    required this.message,
+    required this.timestamp,
+    required this.whatsappLink,
+    this.countryCode,
+  });
   @HiveField(0)
   final String phone;
 
@@ -16,12 +24,4 @@ class ChatHistory extends HiveObject {
   final String whatsappLink;
   @HiveField(4)
   final String? countryCode;
-
-  ChatHistory({
-    required this.phone,
-    required this.message,
-    required this.timestamp,
-    required this.whatsappLink,
-    this.countryCode,
-  });
 }

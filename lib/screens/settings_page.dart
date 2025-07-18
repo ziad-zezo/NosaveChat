@@ -5,8 +5,8 @@ import 'package:quick_chat/helper_files/settings_helper.dart';
 import 'package:quick_chat/widgets/section_header.dart';
 import 'package:quick_chat/widgets/settings_list_tile.dart';
 import 'package:restart_app/restart_app.dart';
-import '../helper_files/default_values.dart';
-import '../widgets/gap.dart';
+import 'package:quick_chat/helper_files/default_values.dart';
+import 'package:quick_chat/widgets/gap.dart';
 import 'package:country_picker/country_picker.dart' as cp;
 
 class SettingsPage extends StatefulWidget {
@@ -36,7 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
     _languageCode = await SettingsHelper.loadLocale().then(
       (value) => value!.languageCode,
     );
-    _language = _languageCode.toLowerCase() == 'en' ? "English" : "العربية";
+    _language = _languageCode.toLowerCase() == 'en' ? 'English' : 'العربية';
 
     //*load country settings
     _country = _getCountryString();
@@ -50,21 +50,21 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? Center(child: CircularProgressIndicator())
+        ? const Center(child: CircularProgressIndicator())
         : Padding(
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SectionHeader(title: "Language"),
-                  VerticalGap(gap: 10),
+                  const SectionHeader(title: 'Language'),
+                  const VerticalGap(gap: 10),
                   SettingsListTile(
                     title: _language,
                     onTap: _showLanguagePickerDialog,
                   ),
-                  VerticalGap(gap: 20),
-                  SectionHeader(title: "Country Code"),
-                  VerticalGap(gap: 10),
+                  const VerticalGap(gap: 20),
+                  const SectionHeader(title: 'Country Code'),
+                  const VerticalGap(gap: 10),
                   ListTile(
                     onTap: () {
                       cp.showCountryPicker(
@@ -81,15 +81,15 @@ class _SettingsPageState extends State<SettingsPage> {
                       );
                     },
                     title: Text(_country),
-                    trailing: Icon(Icons.arrow_forward_ios),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(color: Colors.green),
+                      side: const BorderSide(color: Colors.green),
                     ),
                   ),
-                  VerticalGap(gap: 20),
-                  SectionHeader(title: "Preferences"),
-                  VerticalGap(gap: 10),
+                  const VerticalGap(gap: 20),
+                  const SectionHeader(title: 'Preferences'),
+                  const VerticalGap(gap: 10),
 
                   //Dark mode Enable Switch
                   SwitchListTile(
@@ -98,15 +98,15 @@ class _SettingsPageState extends State<SettingsPage> {
                       widget.toggleTheme();
                       setState(() {});
                     },
-                    title: Text(" Dark Mode"),
+                    title: const Text(' Dark Mode'),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(color: Colors.green),
+                      side: const BorderSide(color: Colors.green),
                     ),
                     enableFeedback: true,
                     activeColor: Colors.green,
                   ),
-                  VerticalGap(gap: 10),
+                  const VerticalGap(gap: 10),
                   //History Enable Switch
                   SwitchListTile(
                     value: _saveRecentNumbersSwitch,
@@ -118,10 +118,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       _loadSettings();
                     },
 
-                    title: Text("Save Recent Numbers"),
+                    title: const Text('Save Recent Numbers'),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(color: Colors.green),
+                      side: const BorderSide(color: Colors.green),
                     ),
                     enableFeedback: true,
                     activeColor: Colors.green,
@@ -140,13 +140,13 @@ class _SettingsPageState extends State<SettingsPage> {
     showDialog(
       context: context,
       barrierColor: Colors.black87,
-      animationStyle: AnimationStyle(
+      animationStyle: const AnimationStyle(
         duration: Duration(milliseconds: 300),
         curve: Curves.decelerate,
       ),
       builder: (BuildContext context) {
         return SimpleDialog(
-          contentPadding: EdgeInsets.all(defaultPadding),
+          contentPadding: const EdgeInsets.all(defaultPadding),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -161,7 +161,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 if (!context.mounted) return;
                 Navigator.pop(context);
               },
-              padding: EdgeInsets.all(defaultPadding),
+              padding: const EdgeInsets.all(defaultPadding),
               child: const Text('English'),
             ),
             SimpleDialogOption(
@@ -173,7 +173,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 if (!context.mounted) return;
                 Navigator.pop(context);
               },
-              padding: EdgeInsets.all(defaultPadding),
+              padding: const EdgeInsets.all(defaultPadding),
               child: const Text('العربية'),
             ),
           ],
@@ -186,7 +186,7 @@ class _SettingsPageState extends State<SettingsPage> {
     final c = intl.countries.firstWhere(
       (country) => country.code == userSettings.countryCode.toUpperCase(),
     );
-    return "${c.name} (+${c.dialCode})";
+    return '${c.name} (+${c.dialCode})';
   }
 
   Future<void> _changeLanguage(String languageCode) async {

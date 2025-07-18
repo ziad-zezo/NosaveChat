@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:quick_chat/helper_files/phone_utils.dart';
 
@@ -36,14 +35,14 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
             onPressed: () {
               widget.phoneNumberController.clear();
             },
-            icon: Icon(Icons.clear),
+            icon: const Icon(Icons.clear),
           ),
           contentPadding: const EdgeInsets.symmetric(
             vertical: 16,
             horizontal: 16,
           ),
           filled: true,
-          fillColor: Color(0x0b008000),
+          fillColor: const Color(0x0b008000),
           hintText: 'Phone Number',
           hintStyle: TextStyle(color: Colors.grey[500]),
         ),
@@ -73,7 +72,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
           return null;
         },
         onCountryChanged: (country) {
-          widget.onCountryChanged("+${country.dialCode}");
+          widget.onCountryChanged('+${country.dialCode}');
         },
       ),
     );

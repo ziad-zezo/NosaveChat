@@ -21,9 +21,9 @@ class ClipboardContactListTile extends StatelessWidget {
         phoneNumber,
         style:const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text("Long Press To Edit",style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.grey),),
+      subtitle: Text('Long Press To Edit',style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.grey),),
       trailing: const Text(
-        "Start Chat",
+        'Start Chat',
         style: TextStyle(
           fontSize: 14,
           color: Colors.green,

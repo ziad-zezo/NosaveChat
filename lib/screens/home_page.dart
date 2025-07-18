@@ -11,15 +11,15 @@ import 'package:quick_chat/helper_files/custom_snack_bar.dart';
 import 'package:quick_chat/helper_files/phone_utils.dart';
 import 'package:quick_chat/widgets/message_text_field.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
-import '../helper_files/default_values.dart';
-import '../generated/l10n.dart';
-import '../widgets/clipboard_container.dart';
-import '../widgets/start_chat_button.dart';
-import '../widgets/gap.dart';
-import '../widgets/phone_number_text_field.dart';
-import '../widgets/recent_numbers_list_tile.dart';
-import '../widgets/recent_numbers_section_header.dart';
-import '../widgets/section_header.dart';
+import 'package:quick_chat/helper_files/default_values.dart';
+import 'package:quick_chat/generated/l10n.dart';
+import 'package:quick_chat/widgets/clipboard_container.dart';
+import 'package:quick_chat/widgets/start_chat_button.dart';
+import 'package:quick_chat/widgets/gap.dart';
+import 'package:quick_chat/widgets/phone_number_text_field.dart';
+import 'package:quick_chat/widgets/recent_numbers_list_tile.dart';
+import 'package:quick_chat/widgets/recent_numbers_section_header.dart';
+import 'package:quick_chat/widgets/section_header.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.navigateToHistoryPage});
@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage>
                   ),
                 ),
               SectionHeader(title: S.of(context).enter_phone_number),
-              VerticalGap(gap: 20),
+              const VerticalGap(gap: 20),
               //*Phone TextField
               ValueListenableBuilder<String>(
                 valueListenable: selectedCountryCode,
@@ -130,16 +130,16 @@ class _HomePageState extends State<HomePage>
                   );
                 },
               ),
-              VerticalGap(gap: 20),
+              const VerticalGap(gap: 20),
               MessageTextField(
                 messageController: _messageController,
                 messageFocusNode: _messageFocusNode,
                 suffixIcon: IconButton(
                   onPressed: () => _messageController.clear(),
-                  icon: Icon(Icons.clear),
+                  icon: const Icon(Icons.clear),
                 ),
               ),
-              VerticalGap(gap: 20),
+              const VerticalGap(gap: 20),
               //*Chat Button
               ValueListenableBuilder(
                 valueListenable: selectedCountryCode,
@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage>
                       )) {
                         CustomSnackBar.showErrorSnackBar(
                           context,
-                          message: "Invalid Phone Number",
+                          message: 'Invalid Phone Number',
                         );
                         return;
                       }
@@ -168,14 +168,14 @@ class _HomePageState extends State<HomePage>
               BlocBuilder<ChatHistoryCubit, ChatHistoryState>(
                 builder: (context, state) {
                   if (state is ChatHistoryLoading) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   } else if (state is ChatHistoryLoaded) {
                     final displayedChats = state.chats.take(2).toList();
                     return Column(
                       children: [
-                        VerticalGap(gap: 30),
-                        Divider(),
-                        VerticalGap(gap: 20),
+                        const VerticalGap(gap: 30),
+                        const Divider(),
+                        const VerticalGap(gap: 20),
                         RecentNumbersSectionHeader(
                           onTap: () {
                             _unfocus();
@@ -185,7 +185,7 @@ class _HomePageState extends State<HomePage>
                         ListView(
                           shrinkWrap: true, // Takes only the space it needs
                           physics:
-                              NeverScrollableScrollPhysics(), // Disables scrolling
+                              const NeverScrollableScrollPhysics(), // Disables scrolling
                           children: displayedChats
                               .map(
                                 (chat) =>
@@ -196,11 +196,11 @@ class _HomePageState extends State<HomePage>
                       ],
                     );
                   } else {
-                    return SizedBox.shrink();
+                    return const SizedBox.shrink();
                   }
                 },
               ),
-              VerticalGap(gap: 20),
+              const VerticalGap(gap: 20),
             ],
           ),
         ),
@@ -233,7 +233,7 @@ class _HomePageState extends State<HomePage>
             context,
             icon: Icons.copy_rounded,
             message:
-                "${S.of(context).clipboard_content}: ${PhoneUtils.cleanPhoneNumber(newClipboardText!)}",
+                '${S.of(context).clipboard_content}: ${PhoneUtils.cleanPhoneNumber(newClipboardText!)}',
           );
         }
       }
@@ -272,14 +272,13 @@ class _HomePageState extends State<HomePage>
     final phoneRegex = RegExp(
       r'(\+?\d{1,3}[\s-]?)?(\d{3,4}[\s-]?\d{3,4}[\s-]?\d{3,4}|\d{8,14})',
       caseSensitive: false,
-      multiLine: false,
     );
 
     // Find all matches in the text
     final matches = phoneRegex.allMatches(text);
 
     // Extract and format the matched numbers
-    List<String> phoneNumbers = [];
+    final List<String> phoneNumbers = [];
     for (final match in matches) {
       String number = match.group(0)!;
 
@@ -323,18 +322,18 @@ class _HomePageState extends State<HomePage>
               Icon(Icons.error, color: Colors.red, size: 30),
               SizedBox(width: 8),
               Text(
-                "No Phone Found",
+                'No Phone Found',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
           ),
           content: const Text(
-            "No valid phone number was detected in the image.",
+            'No valid phone number was detected in the image.',
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text("OK"),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -356,7 +355,7 @@ class _HomePageState extends State<HomePage>
               Icon(Icons.check_circle, color: Colors.green, size: 30),
               SizedBox(width: 8),
               Text(
-                "Detected Phone",
+                'Detected Phone',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
@@ -398,7 +397,7 @@ class _HomePageState extends State<HomePage>
               _numberFocusNode.requestFocus();
               },
             icon: const Icon(Icons.edit, color: Colors.blue),
-            label: const Text("Edit", style: TextStyle(color: Colors.blue)),
+            label: const Text('Edit', style: TextStyle(color: Colors.blue)),
             style: OutlinedButton.styleFrom(
               side: const BorderSide(color: Colors.blue),
               shape: RoundedRectangleBorder(
@@ -417,7 +416,7 @@ class _HomePageState extends State<HomePage>
               );
             },
             icon: const Icon(FontAwesomeIcons.whatsapp, color: Colors.white),
-            label: const Text("Chat"),
+            label: const Text('Chat'),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green.shade700,
               foregroundColor: Colors.white,
