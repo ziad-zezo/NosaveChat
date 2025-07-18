@@ -21,13 +21,14 @@ class ChatHistoryAdapter extends TypeAdapter<ChatHistory> {
       message: fields[1] as String,
       timestamp: fields[2] as DateTime,
       whatsappLink: fields[3] as String,
+      countryCode: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, ChatHistory obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.phone)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class ChatHistoryAdapter extends TypeAdapter<ChatHistory> {
       ..writeByte(2)
       ..write(obj.timestamp)
       ..writeByte(3)
-      ..write(obj.whatsappLink);
+      ..write(obj.whatsappLink)
+      ..writeByte(4)
+      ..write(obj.countryCode);
   }
 
   @override

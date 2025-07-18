@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_chat/helper_files/boxes.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../cubit/chat_history_cubit.dart';
+import 'custom_snack_bar.dart';
 
 class PhoneUtils {
   static String cleanPhoneNumber(String phone) {
@@ -48,16 +48,14 @@ class PhoneUtils {
 
       await launchUrl(urlParsed);
       if (context.mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Chat started with $fullPhone')));
+        CustomSnackBar.showSuccessSnackBar(context,message:  'Chat started with $fullPhone');
+
       }
       return urlParsed.toString();
     } catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('حدث خطأ: ${e.toString()}')));
+        CustomSnackBar.showErrorSnackBar(context,message:  "Failed to launch WhatsApp");
+
       }
       }
     return null;
@@ -74,6 +72,7 @@ class PhoneUtils {
       phone: phoneNumber,
       message:message,
       whatsappLink: whatsappLink,
+      countryCode: countryCode,
     );
   }
 }

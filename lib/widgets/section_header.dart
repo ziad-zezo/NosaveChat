@@ -12,7 +12,7 @@ final Widget? trailing;
       alignment: Alignment.centerLeft,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Text(title, style: TextStyle(fontSize: 20)),Flexible(child: trailing ?? SizedBox.shrink())],
+        children: [Expanded(child: Text(title, style: TextStyle(fontSize: 20),overflow: TextOverflow.clip,)),?trailing],
       ),
     );
   }

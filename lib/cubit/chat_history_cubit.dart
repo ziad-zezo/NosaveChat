@@ -23,18 +23,24 @@ class ChatHistoryCubit extends Cubit<ChatHistoryState> {
     for (var chat in _chatHistoryBox.values) {
       chats.add(chat);
     }
-// Sort chats by timestamp in descending order (newest first)
+    // Sort chats by timestamp in descending order (newest first)
     chats.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     emit(ChatHistoryLoaded(chats: chats));
-
   }
-  Future<void> addChatEntry({required String phone,required String message,required String whatsappLink}) async {
+
+  Future<void> addChatEntry({
+    required String phone,
+    required String message,
+    required String whatsappLink,
+    required String countryCode,
+  }) async {
     try {
       final newEntry = ChatHistory(
         message: message,
         phone: phone,
         timestamp: DateTime.now(),
-        whatsappLink:whatsappLink ,
+        whatsappLink: whatsappLink,
+        countryCode: countryCode,
       );
       await _chatHistoryBox.add(newEntry);
       // Reload or update the state
@@ -43,5 +49,4 @@ class ChatHistoryCubit extends Cubit<ChatHistoryState> {
       emit(ChatHistoryEmpty());
     }
   }
-
 }

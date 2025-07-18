@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.onPressed});
+class StartChatButton extends StatelessWidget {
+  const StartChatButton({super.key, required this.onPressed});
 
 final GestureTapCallback onPressed;
 

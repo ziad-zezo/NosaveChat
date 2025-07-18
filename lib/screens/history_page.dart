@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_chat/cubit/chat_history_cubit.dart';
 import 'package:quick_chat/helper_files/boxes.dart';
+import 'package:quick_chat/helper_files/custom_snack_bar.dart';
 import 'package:quick_chat/hive/chat_history.dart';
 import 'package:quick_chat/widgets/gap.dart';
 import 'package:quick_chat/widgets/recent_numbers_list_tile.dart';
@@ -77,13 +78,12 @@ class _HistoryPageState extends State<HistoryPage> {
                   onDismissed: (direction) {
                     chatBox.delete(recentNumbers[index - 1].key);
                     context.read<ChatHistoryCubit>().loadChatHistory();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Chat history deleted")),
-                    );
+                    CustomSnackBar.showInfoSnackBar(context,message: "Chat Deleted");
                     HapticFeedback.lightImpact();
                   },
 
                   child: RecentNumberListTile(
+
                     chatHistory: recentNumbers[index - 1],
                   ),
                 );

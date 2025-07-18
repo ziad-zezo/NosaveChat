@@ -1,6 +1,10 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:quick_chat/helper_files/boxes.dart';
+import 'package:quick_chat/helper_files/phone_utils.dart';
+import 'package:quick_chat/screens/about_screen.dart';
 import 'package:quick_chat/screens/home_page.dart';
 import 'package:quick_chat/screens/settings_page.dart';
 import 'history_page.dart';
@@ -15,15 +19,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   final pageController = PageController();
-  final _homePageFocusNode=FocusNode();
+  final _homePageFocusNode = FocusNode();
   late final List<Widget> _pages;
   @override
   void initState() {
     super.initState();
     _pages = [
       Focus(
-          focusNode: _homePageFocusNode,
-          child: HomePage(key: UniqueKey(), navigateToHistoryPage: navigateToHistoryPage)),
+        focusNode: _homePageFocusNode,
+        child: HomePage(
+          key: UniqueKey(),
+          navigateToHistoryPage: navigateToHistoryPage,
+        ),
+      ),
       HistoryPage(key: UniqueKey()),
       SettingsPage(key: UniqueKey(), toggleTheme: widget.toggleTheme),
       Center(key: UniqueKey(), child: Text("Info")),
@@ -44,7 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
           title: const Text("Quick Chat"),
           centerTitle: true,
           elevation: 0,
-          leading: IconButton(onPressed: (){},icon: Icon(CupertinoIcons.info_circle_fill)),
+          leading: IconButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => AboutScreen()),
+            ),
+            icon: Icon(CupertinoIcons.info_circle_fill),
+          ),
           actions: [
             IconButton(
               onPressed: widget.toggleTheme,
@@ -100,11 +114,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void animateToPage({required int page}) {
-    _homePageFocusNode.unfocus();//to unfocus text fields
+    _homePageFocusNode.unfocus(); //to unfocus text fields
     pageController.animateToPage(
       page,
       curve: Curves.linear,
       duration: Duration(milliseconds: 250),
     );
   }
-}
+
+  }

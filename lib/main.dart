@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:quick_chat/cubit/chat_history_cubit.dart';
 import 'package:quick_chat/helper_files/theme_helper.dart';
-import 'package:quick_chat/screens/app_entry_point.dart';
+import 'package:quick_chat/screens/home_screen.dart';
 import 'helper_files/boxes.dart';
 import 'generated/l10n.dart';
 import 'hive/app_settings.dart';
@@ -78,7 +78,7 @@ class _QuickChatState extends State<QuickChat> {
       create: (_) => ChatHistoryCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        darkTheme:  ThemeHelper.getThemeDate(brightness: Brightness.dark),
+        darkTheme: ThemeHelper.getThemeDate(brightness: Brightness.dark),
         //ThemeData.dark(),
         theme: ThemeHelper.getThemeDate(),
         themeMode: _themeMode,
@@ -90,10 +90,9 @@ class _QuickChatState extends State<QuickChat> {
         ],
         supportedLocales: S.delegate.supportedLocales,
         locale: locale,
-        home: AppEntryPoint(toggleTheme: toggleTheme),
+        home: HomeScreen(toggleTheme: toggleTheme),
+        //AppEntryPoint(toggleTheme: toggleTheme),
       ),
     );
   }
-
-
 }

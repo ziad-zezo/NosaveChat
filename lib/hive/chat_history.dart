@@ -14,6 +14,14 @@ class ChatHistory extends HiveObject {
   final DateTime timestamp;
   @HiveField(3)
   final String whatsappLink;
+  @HiveField(4)
+  final String? countryCode;
 
-  ChatHistory( {required this.phone, required this.message, required this.timestamp,required this.whatsappLink});
+  ChatHistory({
+    required this.phone,
+    required this.message,
+    required this.timestamp,
+    required this.whatsappLink,
+    this.countryCode,
+  });
 }

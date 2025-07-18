@@ -1,16 +1,11 @@
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:recharge_snap/colors.dart';
-import 'package:recharge_snap/generated/l10n.dart';
-import 'package:recharge_snap/widgets/custom_tooltip.dart';
-
-import 'package:recharge_snap/widgets/show_toast.dart';
-import 'package:toastification/toastification.dart';
+import 'package:quick_chat/generated/l10n.dart';
+import 'package:quick_chat/widgets/custom_tooltip.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -71,114 +66,197 @@ class _AboutScreenState extends State<AboutScreen>
     try {
       await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
       if (!context.mounted) return;
-      showToast(
-        context: context,
-        message: 'redirecting to $platform',
-        toastType: ToastificationType.success,
-      );
     } catch (_) {
       if (!context.mounted) return;
-      showToast(
-        context: context,
-        message: 'Failed to redirect to $platform',
-        toastType: ToastificationType.error,
-      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Container(
-          height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [primaryColor, secondaryColor],
-              begin: beginAlignment,
-              end: endAlignment,
-            ),
-          ),
-          child: SafeArea(
-            child: Stack(
-              children: [
-                Center(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 60),
-                        AnimatedBuilder(
-                          animation: _controller,
-                          builder: (context, child) {
-                            return Transform.translate(
-                              offset: const Offset(0, -20),
-                              child: Opacity(
-                                opacity: _opacityAnimation.value,
-                                child: Transform.scale(
-                                  scale: _scaleAnimation.value,
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 90,
-                                        backgroundColor: Colors.white24,
-                                      ),
-                                      CustomTooltip(
-                                        message: S.of(context).elzoz,
-                                        backgroundColor: Color.fromARGB(
-                                          90,
-                                          33,
-                                          243,
-                                          226,
+    return Theme(
+      data: ThemeData.dark(),
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Container(
+            height: double.infinity,
+            decoration: BoxDecoration(),
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  Center(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 60),
+                          AnimatedBuilder(
+                            animation: _controller,
+                            builder: (context, child) {
+                              return Transform.translate(
+                                offset: const Offset(0, -20),
+                                child: Opacity(
+                                  opacity: _opacityAnimation.value,
+                                  child: Transform.scale(
+                                    scale: _scaleAnimation.value,
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 88,
+                                          backgroundColor: Colors.green,
                                         ),
-                                        verticalOffset: -100,
-                                        child: SizedBox(
-                                          width: 171,
-                                          height: 171,
-                                          child: ClipOval(
-                                            // width: 100,
-                                            //  height: 100,
+                                        CustomTooltip(
+                                          message: ("elzooz"),
+                                          //S.of(context).elzoz,
+                                          backgroundColor: Color.fromARGB(
+                                            90,
+                                            33,
+                                            243,
+                                            226,
+                                          ),
+                                            verticalOffset: -100,
+                                          child: SizedBox(
+                                            width: 171,
+                                            height: 171,
+                                            child: ClipOval(
+                                              // width: 100,
+                                              //  height: 100,
 
-                                            //  radius: 86,
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                  'https://res.cloudinary.com/dbl6rerdz/image/upload/v1750264165/profile_image.jpg',
-                                              imageBuilder:
-                                                  (
-                                                    context,
-                                                    imageProvider,
-                                                  ) => Container(
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: imageProvider,
-                                                        fit: BoxFit.cover,
-                                                        // You can add colorFilter, alignment, etc. here
+                                              //  radius: 86,
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    'https://res.cloudinary.com/dbl6rerdz/image/upload/v1750404513/profile_image.jpg',
+                                                imageBuilder:
+                                                    (
+                                                      context,
+                                                      imageProvider,
+                                                    ) => Container(
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: imageProvider,
+                                                          fit: BoxFit.cover,
+                                                          // You can add colorFilter, alignment, etc. here
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                              placeholder:
-                                                  (
-                                                    context,
-                                                    url,
-                                                  ) => const Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                          color: Colors.white,
-                                                        ),
-                                                  ),
-                                              errorWidget:
-                                                  (
-                                                    context,
-                                                    url,
-                                                    error,
-                                                  ) => Image.asset(
-                                                    'assets/images/profile_image.jpg',
-                                                  ),
+                                                placeholder: (context, url) =>
+                                                    const Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                            color: Colors.white,
+                                                          ),
+                                                    ),
+                                                errorWidget:
+                                                    (
+                                                      context,
+                                                      url,
+                                                      error,
+                                                    ) => Image.asset(
+                                                      'assets/images/profile_image.jpg',
+                                                    ),
+                                              ),
                                             ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          SlideTransition(
+                            position: _slideAnimation,
+                            child: FadeTransition(
+                              opacity: _opacityAnimation,
+                              child: _GlassMorphicCard(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(24),
+                                  child: Column(
+                                    children: [
+                                      //** profile info
+                                      Text(
+                                        'Ziad Mohamed',
+                                        style: GoogleFonts.underdog(
+                                          textStyle: const TextStyle(
+                                            fontSize: 28,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        'App Devoloper | Flutter Developer',
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.underdog(
+                                          textStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.grey[400],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      CustomTooltip(
+                                        message: ('Phone 📞'),
+                                        backgroundColor: const Color.fromARGB(
+                                          90,
+                                          33,
+                                          149,
+                                          243,
+                                        ),
+                                        child: _ContactTile(
+                                          icon: Icons.phone,
+                                          color: Colors.white,
+                                          text: '+20 155 408 3601',
+                                          onTap: () => _launchUrl(
+                                            'tel:+201554083601',
+                                            context: context,
+                                            platform: 'phone',
+                                          ),
+                                        ),
+                                      ),
+                                      const Divider(color: Colors.white24),
+                                      CustomTooltip(
+                                        message: ('Send me a mail 📩'),
+                                        backgroundColor: const Color.fromARGB(
+                                          90,
+                                          33,
+                                          149,
+                                          243,
+                                        ),
+                                        child: _ContactTile(
+                                          icon: Icons.email,
+                                          color: Colors.red.shade700,
+                                          text: 'ziadmohshahien5',
+                                          onTap: () => _launchUrl(
+                                            'mailto:ziadmohshahien5@gmail.com',
+                                            context: context,
+                                            platform: 'Email',
+                                          ),
+                                        ),
+                                      ),
+                                      const Divider(color: Colors.white24),
+                                      CustomTooltip(
+                                        message: ('Chat me on WhatsApp 💬'),
+                                        backgroundColor: const Color.fromARGB(
+                                          90,
+                                          33,
+                                          149,
+                                          243,
+                                        ),
+                                        child: _ContactTile(
+                                          icon: FontAwesomeIcons.whatsapp,
+                                          color: Colors.green,
+                                          text: 'WhatsApp Me',
+                                          onTap: () => _launchUrl(
+                                            'https://wa.me/201554083601',
+                                            context: context,
+                                            platform: 'WhatsApp',
                                           ),
                                         ),
                                       ),
@@ -186,186 +264,84 @@ class _AboutScreenState extends State<AboutScreen>
                                   ),
                                 ),
                               ),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        SlideTransition(
-                          position: _slideAnimation,
-                          child: FadeTransition(
-                            opacity: _opacityAnimation,
-                            child: _GlassMorphicCard(
-                              child: Padding(
-                                padding: const EdgeInsets.all(24),
-                                child: Column(
-                                  children: [
-                                    //** profile info
-                                    Text(
-                                      'Ziad Mohamed',
-                                      style: GoogleFonts.underdog(
-                                        textStyle: const TextStyle(
-                                          fontSize: 28,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          SlideTransition(
+                            position: _slideAnimation,
+                            child: FadeTransition(
+                              opacity: _opacityAnimation,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CustomTooltip(
+                                    message: ('Facebook Account'),
+                                    backgroundColor: Colors.blue,
+                                    child: _SocialButton(
+                                      icon: FontAwesomeIcons.facebookF,
+                                      iconSize: 28,
+                                      onTap: () => _launchUrl(
+                                        'https://www.facebook.com/share/194wftyVh7/',
+                                        context: context,
+                                        platform: 'Facebook',
                                       ),
                                     ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      'App Devoloper | Flutter Developer',
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.underdog(
-                                        textStyle: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.grey[400],
-                                        ),
+                                  ),
+                                  CustomTooltip(
+                                    message: ('LinkedIn Account'),
+
+                                    backgroundColor: Colors.lightBlue,
+                                    child: _SocialButton(
+                                      icon: FontAwesomeIcons.linkedinIn,
+                                      iconSize: 24,
+                                      onTap: () => _launchUrl(
+                                        'https://www.linkedin.com/in/ziad-mohamed-76b8a518b',
+                                        context: context,
+                                        platform: 'LinkedIn',
                                       ),
                                     ),
-                                    const SizedBox(height: 16),
-                                    CustomTooltip(
-                                      message: 'Phone 📞',
-                                      backgroundColor: const Color.fromARGB(
-                                        90,
-                                        33,
-                                        149,
-                                        243,
-                                      ),
-                                      child: _ContactTile(
-                                        icon: Icons.phone,
-                                        text: '+20 155 408 3601',
-                                        onTap:
-                                            () => _launchUrl(
-                                              'tel:+201554083601',
-                                              context: context,
-                                              platform: 'phone',
-                                            ),
+                                  ),
+                                  CustomTooltip(
+                                    message: ('Instagram Account'),
+
+                                    backgroundColor: Colors.redAccent,
+                                    child: _SocialButton(
+                                      icon: FontAwesomeIcons.instagram,
+                                      iconSize: 26,
+                                      onTap: () => _launchUrl(
+                                        'https://www.instagram.com/ziad_mohamed_sh0',
+                                        context: context,
+                                        platform: 'Instagram',
                                       ),
                                     ),
-                                    const Divider(color: Colors.white24),
-                                    CustomTooltip(
-                                      message: 'Send me a mail 📩',
-                                      backgroundColor: const Color.fromARGB(
-                                        90,
-                                        33,
-                                        149,
-                                        243,
-                                      ),
-                                      child: _ContactTile(
-                                        icon: Icons.email,
-                                        text: 'ziadmohshahien5',
-                                        onTap:
-                                            () => _launchUrl(
-                                              'mailto:ziadmohshahien5@gmail.com',
-                                              context: context,
-                                              platform: 'Email',
-                                            ),
-                                      ),
-                                    ),
-                                    const Divider(color: Colors.white24),
-                                    CustomTooltip(
-                                      message: 'Chat me on WhatsApp 💬',
-                                      backgroundColor: const Color.fromARGB(
-                                        90,
-                                        33,
-                                        149,
-                                        243,
-                                      ),
-                                      child: _ContactTile(
-                                        icon: FontAwesomeIcons.whatsapp,
-                                        text: 'WhatsApp Me',
-                                        onTap:
-                                            () => _launchUrl(
-                                              'https://wa.me/201554083601',
-                                              context: context,
-                                              platform: 'WhatsApp',
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 24),
-                        SlideTransition(
-                          position: _slideAnimation,
-                          child: FadeTransition(
-                            opacity: _opacityAnimation,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CustomTooltip(
-                                  message: 'Facebook Account',
-                                  backgroundColor: Colors.blue,
-                                  child: _SocialButton(
-                                    icon: FontAwesomeIcons.facebookF,
-                                    iconSize: 28,
-
-                                    onTap:
-                                        () => _launchUrl(
-                                          'https://www.facebook.com/share/194wftyVh7/',
-                                          context: context,
-                                          platform: 'Facebook',
-                                        ),
-                                  ),
-                                ),
-                                CustomTooltip(
-                                  message: 'LinkedIn Account',
-
-                                  backgroundColor: Colors.lightBlue,
-                                  child: _SocialButton(
-                                    icon: FontAwesomeIcons.linkedinIn,
-                                    iconSize: 24,
-                                    onTap:
-                                        () => _launchUrl(
-                                          'https://www.linkedin.com/in/ziad-mohamed-76b8a518b',
-                                          context: context,
-                                          platform: 'LinkedIn',
-                                        ),
-                                  ),
-                                ),
-                                CustomTooltip(
-                                  message: 'Instagram Account',
-
-                                  backgroundColor: Colors.redAccent,
-                                  child: _SocialButton(
-                                    icon: FontAwesomeIcons.instagram,
-                                    iconSize: 26,
-                                    onTap:
-                                        () => _launchUrl(
-                                          'https://www.instagram.com/ziad_mohamed_sh0',
-                                          context: context,
-                                          platform: 'Instagram',
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                //back button
-                Positioned(
-                  top: 10,
-                  left: 10,
-                  child: CustomTooltip(
-                    message: 'Back ',
-                    verticalOffset: 30,
-                    backgroundColor: const Color.fromARGB(90, 33, 149, 243),
-                    child: _SocialButton(
-                      icon: FontAwesomeIcons.arrowLeft,
-                      iconSize: 24,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
+                  //back button
+                  Positioned(
+                    top: 10,
+                    left: 10,
+                    child: CustomTooltip(
+                      message: ('Back '),
+                       verticalOffset: 30,
+                      backgroundColor: const Color.fromARGB(90, 33, 149, 243),
+                      child: _SocialButton(
+                        icon: FontAwesomeIcons.arrowLeft,
+                        iconSize: 24,
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -384,7 +360,7 @@ class _GlassMorphicCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white24),
+        border: Border.all(color: Colors.green.shade700),
         boxShadow: const [
           BoxShadow(color: Color(0x1f000000), blurRadius: 16, spreadRadius: 4),
         ],
@@ -414,10 +390,12 @@ class _ContactTile extends StatefulWidget {
     required this.icon,
     required this.text,
     required this.onTap,
+    this.color = Colors.white,
   });
 
   final IconData icon;
   final String text;
+  final Color color;
   final VoidCallback onTap;
 
   @override
@@ -440,9 +418,10 @@ class _ContactTileState extends State<_ContactTile> {
           decoration: BoxDecoration(
             color: _isHovered ? Colors.white12 : Colors.transparent,
             borderRadius: BorderRadius.circular(12),
+            // border: Border.all(color: Colors.green.shade50)
           ),
           child: ListTile(
-            leading: Icon(widget.icon, color: Colors.white),
+            leading: Icon(widget.icon, color: widget.color),
             title: Text(
               widget.text,
               style: const TextStyle(color: Colors.white),
@@ -504,8 +483,9 @@ class _SocialButtonState extends State<_SocialButton>
         scale: Tween(begin: 1.0, end: 0.9).animate(_controller),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
+            border: Border.all(color: Colors.green, width: 0.7),
             gradient: LinearGradient(
               colors: [
                 Color(0x33FFFFFF), // White with 20% opacity (0.2)
