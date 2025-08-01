@@ -1,16 +1,17 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:quick_chat/cubit/chat_history_cubit.dart';
-import 'package:quick_chat/helper_files/theme_helper.dart';
-import 'package:quick_chat/screens/home_screen.dart';
-import 'package:quick_chat/helper_files/boxes.dart';
 import 'package:quick_chat/generated/l10n.dart';
+import 'package:quick_chat/helper_files/boxes.dart';
+import 'package:quick_chat/helper_files/theme_helper.dart';
 import 'package:quick_chat/hive/app_settings.dart';
 import 'package:quick_chat/hive/chat_history.dart';
+import 'package:quick_chat/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,46 +31,46 @@ void main() async {
         isDarkMode: false,
         countryCode: 'EG',
         saveRecentNumber: true,
+        savedMessage: '',
       ),
     );
   }
 
-  runApp(QuickChat(isDarkMode: userSettings.isDarkMode));
+  runApp(const NoSaveChat());
 }
 
-class QuickChat extends StatefulWidget {
-  const QuickChat({super.key, required this.isDarkMode});
+class NoSaveChat extends StatefulWidget {
+  const NoSaveChat({super.key});
 
-  final bool isDarkMode;
   @override
-  State<QuickChat> createState() => _QuickChatState();
+  State<NoSaveChat> createState() => _NoSaveChatState();
 }
 
-class _QuickChatState extends State<QuickChat> {
-  ThemeMode _themeMode = ThemeMode.light;
+class _NoSaveChatState extends State<NoSaveChat> {
+  late ThemeMode _themeMode = settingsBox.get('user_settings')!.isDarkMode
+  ? ThemeMode.dark
+      : ThemeMode.light;
   final Locale locale = Locale(userSettings.languageCode);
   @override
   void initState() {
     super.initState();
-    _loadTheme();
+    // _themeMode = userSettings.isDarkMode
+    //     ? ThemeMode.dark
+    //     : ThemeMode.light;
   }
 
-  void _loadTheme() async {
-    if (widget.isDarkMode) {
-      toggleTheme();
-    }
-  }
 
-  void toggleTheme() async {
+
+  Future<void> toggleTheme() async {
     setState(() {
       _themeMode = _themeMode == ThemeMode.light
           ? ThemeMode.dark
           : ThemeMode.light;
     });
-    await settingsBox.put(
-      'user_settings',
-      userSettings.copyWith(isDarkMode: _themeMode == ThemeMode.dark),
+    userSettings = userSettings.copyWith(
+      isDarkMode: _themeMode == ThemeMode.dark,
     );
+    await settingsBox.put('user_settings', userSettings);
   }
 
   @override
@@ -78,10 +79,10 @@ class _QuickChatState extends State<QuickChat> {
       create: (_) => ChatHistoryCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        darkTheme: ThemeHelper.getThemeDate(brightness: Brightness.dark),
-        //ThemeData.dark(),
-        theme: ThemeHelper.getThemeDate(),
+        darkTheme: ThemeHelper.getThemeData(brightness: Brightness.dark),
+        theme: ThemeHelper.getThemeData(),
         themeMode: _themeMode,
+        //userSettings.isDarkMode ? ThemeMode.dark : ThemeMode.light,
         localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -91,7 +92,6 @@ class _QuickChatState extends State<QuickChat> {
         supportedLocales: S.delegate.supportedLocales,
         locale: locale,
         home: HomeScreen(toggleTheme: toggleTheme),
-        //AppEntryPoint(toggleTheme: toggleTheme),
       ),
     );
   }

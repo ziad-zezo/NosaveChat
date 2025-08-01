@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:quick_chat/generated/l10n.dart';
 
 
 class ClipboardContactListTile extends StatelessWidget {
@@ -21,10 +22,10 @@ class ClipboardContactListTile extends StatelessWidget {
         phoneNumber,
         style:const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Long Press To Edit',style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.grey),),
-      trailing: const Text(
-        'Start Chat',
-        style: TextStyle(
+      subtitle: Text(S.of(context).long_press_to_edit,style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.grey),),
+      trailing:  Text(
+        S.of(context).start_chat,
+        style: const TextStyle(
           fontSize: 14,
           color: Colors.green,
           fontWeight: FontWeight.bold,

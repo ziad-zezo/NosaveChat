@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ThemeHelper{
-static ThemeData getThemeDate({Brightness brightness = Brightness.light}){
+static ThemeData getThemeData({Brightness brightness = Brightness.light}){
   return ThemeData(
     brightness: brightness,
     inputDecorationTheme: InputDecorationTheme(

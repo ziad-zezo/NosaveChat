@@ -2,9 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String appIconAppIcon = 'assets/app_icons/app_icons.png';
   static const String imagesProfileImage = 'assets/images/profile_image.jpg';
-  static const String imagesWhatappAnimatedIcon = 'assets/images/whatapp_animated_icon.gif';
-  static const String imagesWhatsappIcon = 'assets/images/whatsapp_icon.svg';
-  static const String imagesWhatsappIcon1 = 'assets/images/whatsapp_icon1.svg';
 
 }

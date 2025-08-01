@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_chat/cubit/chat_history_cubit.dart';
+import 'package:quick_chat/generated/l10n.dart';
 import 'package:quick_chat/helper_files/boxes.dart';
 import 'package:quick_chat/helper_files/custom_snack_bar.dart';
+import 'package:quick_chat/helper_files/default_values.dart';
 import 'package:quick_chat/hive/chat_history.dart';
 import 'package:quick_chat/widgets/gap.dart';
 import 'package:quick_chat/widgets/recent_numbers_list_tile.dart';
 import 'package:quick_chat/widgets/section_header.dart';
-import 'package:quick_chat/helper_files/default_values.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -35,23 +36,23 @@ class _HistoryPageState extends State<HistoryPage> {
           //   recentNumbers.addAll(state.chats);
 
           return Container(
-           // width: MediaQuery.of(context).size.width * 0.95,
+            // width: MediaQuery.of(context).size.width * 0.95,
             margin: const EdgeInsets.symmetric(
               horizontal: 16,
             ), //defaultPadding),
 
             child: ListView.builder(
               //shrinkWrap: true,
-             physics:const BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemCount: recentNumbers.length + 1,
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(
+                    padding:  const EdgeInsets.symmetric(
                       vertical: defaultPadding / 2,
                     ),
                     child: SectionHeader(
-                      title: 'Chat History',
+                      title: S.of(context).chat_history,
                       trailing: InkWell(
                         onTap: _deleteChatHistory,
                         child: Icon(
@@ -66,24 +67,31 @@ class _HistoryPageState extends State<HistoryPage> {
                 return Dismissible(
                   key: ValueKey(recentNumbers[index - 1].key),
                   direction: DismissDirection.endToStart,
-                  background: const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                  background:  Row(
+                    //mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Icon(Icons.delete, color: Colors.red),
-                      HorizontalGap(gap: 5),
-                      Text('Delete', style: TextStyle(color: Colors.red)),
-                      HorizontalGap(gap: 8),
+                      const Icon(Icons.delete, color: Colors.red),
+                      const HorizontalGap(gap: 5),
+                      Text(S.of(context).delete, style: const TextStyle(color: Colors.red)),
+                      const HorizontalGap(gap: 8),
+                      const Spacer(),
+                      Text(S.of(context).delete, style: const TextStyle(color: Colors.red)),
+                      const HorizontalGap(gap: 5),
+                      const Icon(Icons.delete, color: Colors.red),
+                      const HorizontalGap(gap: 8),
                     ],
                   ),
                   onDismissed: (direction) {
                     chatBox.delete(recentNumbers[index - 1].key);
                     context.read<ChatHistoryCubit>().loadChatHistory();
-                    CustomSnackBar.showInfoSnackBar(context,message: 'Chat Deleted');
+                    CustomSnackBar.showInfoSnackBar(
+                      context,
+                      message: S.of(context).chat_deleted,
+                    );
                     HapticFeedback.lightImpact();
                   },
 
                   child: RecentNumberListTile(
-
                     chatHistory: recentNumbers[index - 1],
                   ),
                 );
@@ -91,12 +99,12 @@ class _HistoryPageState extends State<HistoryPage> {
             ),
           );
         } else {
-          return const Padding(
-            padding: EdgeInsets.only(bottom: defaultPadding * 2),
+          return  Padding(
+            padding:const EdgeInsets.only(bottom: defaultPadding * 2),
             child: Center(
               child: Text(
-                'No Chat History',
-                style: TextStyle(color: Colors.red, fontSize: 20),
+                S.of(context).no_chat_history,
+                style: const TextStyle(color: Colors.red, fontSize: 20),
               ),
             ),
           );
@@ -114,25 +122,28 @@ class _HistoryPageState extends State<HistoryPage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: const Row(
+          title: Row(
             children: [
-              Icon(Icons.warning_amber_rounded, color: Colors.red),
-              SizedBox(width: 8),
-              Text('Confirm Deletion'),
+              const Icon(Icons.warning_amber_rounded, color: Colors.red),
+              const SizedBox(width: 8),
+              Text(S.of(context).confirm_deletion),
             ],
           ),
           content: Text(
-            'Are you sure you want to delete all chat history? This action cannot be undone.',
+            S.of(context).confirm_delete_warning,
             style: TextStyle(
               color: theme.textTheme.bodyMedium?.color?.withAlpha(200),
             ),
           ),
-          actionsPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          actionsPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
           actionsAlignment: MainAxisAlignment.spaceBetween,
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
+              child:  Text(S.of(context).cancel),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -143,7 +154,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 ),
               ),
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Yes, Delete'),
+              child:  Text(S.of(context).yes_delete),
             ),
           ],
         );

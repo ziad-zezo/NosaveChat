@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quick_chat/generated/l10n.dart';
 
 class StartChatButton extends StatelessWidget {
   const StartChatButton({super.key, required this.onPressed});
@@ -18,9 +19,9 @@ final GestureTapCallback onPressed;
        color: Colors.green,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: const Text(
-        'Start Chat',
-        style: TextStyle(fontSize: 16, color: Colors.black),
+      child:  Text(
+        S.of(context).start_chat,
+        style: const TextStyle(fontSize: 16, color: Colors.black),
       ),
     ),
   );

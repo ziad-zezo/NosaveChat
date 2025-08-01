@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-
 import 'package:quick_chat/hive/app_settings.dart';
 import 'package:quick_chat/hive/chat_history.dart';
 

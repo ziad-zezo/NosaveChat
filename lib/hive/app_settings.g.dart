@@ -21,13 +21,14 @@ class AppSettingsAdapter extends TypeAdapter<AppSettings> {
       isDarkMode: fields[1] as bool,
       countryCode: fields[2] as String,
       saveRecentNumber: fields[3] as bool,
+      savedMessage: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, AppSettings obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.languageCode)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class AppSettingsAdapter extends TypeAdapter<AppSettings> {
       ..writeByte(2)
       ..write(obj.countryCode)
       ..writeByte(3)
-      ..write(obj.saveRecentNumber);
+      ..write(obj.saveRecentNumber)
+      ..writeByte(4)
+      ..write(obj.savedMessage);
   }
 
   @override

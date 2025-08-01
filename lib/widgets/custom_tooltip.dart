@@ -27,6 +27,7 @@ class CustomTooltip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Tooltip(
       message: message,
+      constraints: const BoxConstraints(maxHeight: 200),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(cornerRadius),

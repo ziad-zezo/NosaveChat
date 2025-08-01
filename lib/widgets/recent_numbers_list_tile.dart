@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:quick_chat/generated/l10n.dart';
 import 'package:quick_chat/helper_files/phone_utils.dart';
 import 'package:quick_chat/hive/chat_history.dart';
 import 'package:quick_chat/widgets/custom_tooltip.dart';
@@ -14,7 +15,7 @@ class RecentNumberListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTooltip(
-      message: chatHistory.message.isEmpty?'No Message':'Message: ${chatHistory.message}',
+      message: chatHistory.message.isEmpty?S.of(context).no_message:'${S.of(context).message_prefix} ${chatHistory.message}',
 
       child: Padding(
         padding: const EdgeInsets.only(top: 8),
@@ -40,7 +41,7 @@ class RecentNumberListTile extends StatelessWidget {
                   //style: TextStyle(color: Colors.white),
                 )
               : Text(
-                  'No Message',
+                  S.of(context).no_message,
                   style: TextStyle(color: Colors.orange.shade700.withAlpha(200)),
                 ),
           trailing: Text(

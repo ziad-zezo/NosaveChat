@@ -1,4 +1,4 @@
-package com.zoz.quick_chat
+package com.zoz.nosavechat
 
 import io.flutter.embedding.android.FlutterActivity
 

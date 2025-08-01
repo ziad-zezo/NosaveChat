@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:quick_chat/generated/l10n.dart';
 import 'package:quick_chat/helper_files/phone_utils.dart';
 
 class PhoneNumberTextField extends StatefulWidget {
@@ -43,7 +44,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
           ),
           filled: true,
           fillColor: const Color(0x0b008000),
-          hintText: 'Phone Number',
+          hintText: S.of(context).hint_phone_number,
           hintStyle: TextStyle(color: Colors.grey[500]),
         ),
         disableLengthCheck: true,
@@ -66,7 +67,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
             return null;
           }
           if (!PhoneUtils.isValidPhoneNumber(phone.number)) {
-            return 'Invalid Phone Number';
+            return S.of(context).error_invalid_phone;
           }
 
           return null;
