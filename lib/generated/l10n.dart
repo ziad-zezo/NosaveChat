@@ -428,6 +428,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Share My App`
+  String get share_app {
+    return Intl.message('Share My App', name: 'share_app', desc: '', args: []);
+  }
+
+  /// `Rate My App`
+  String get rate_app {
+    return Intl.message('Rate My App', name: 'rate_app', desc: '', args: []);
+  }
+
+  /// `Copy the app link to share`
+  String get share_app_subtitle {
+    return Intl.message(
+      'Copy the app link to share',
+      name: 'share_app_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rate the app on the Play Store`
+  String get rate_app_subtitle {
+    return Intl.message(
+      'Rate the app on the Play Store',
+      name: 'rate_app_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check out this awesome app: `
+  String get app_share_message {
+    return Intl.message(
+      'Check out this awesome app: ',
+      name: 'app_share_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enjoying the app?`
+  String get bottom_sheet_title {
+    return Intl.message(
+      'Enjoying the app?',
+      name: 'bottom_sheet_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help us grow by sharing and rating!`
+  String get bottom_sheet_description {
+    return Intl.message(
+      'Help us grow by sharing and rating!',
+      name: 'bottom_sheet_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App link copied to clipboard`
+  String get app_link_copied {
+    return Intl.message(
+      'App link copied to clipboard',
+      name: 'app_link_copied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to copy app link`
+  String get failed_to_copy_app_link {
+    return Intl.message(
+      'Failed to copy app link',
+      name: 'failed_to_copy_app_link',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

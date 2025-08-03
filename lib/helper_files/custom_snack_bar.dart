@@ -11,12 +11,11 @@ class CustomSnackBar {
         context: context,
         message: message,
         color: Colors.red,
-        icon: icon??Icons.report_problem_outlined,
+        icon: icon ?? Icons.report_problem_outlined,
       ),
     );
   }
 
-  static void showWarningSnackBar() {}
   static void showInfoSnackBar(
     BuildContext context, {
     required String message,
@@ -27,7 +26,7 @@ class CustomSnackBar {
         context: context,
         message: message,
         color: Colors.grey,
-        icon: icon??Icons.info,
+        icon: icon ?? Icons.info,
       ),
     );
   }
@@ -42,7 +41,7 @@ class CustomSnackBar {
         context: context,
         message: message,
         color: Colors.green,
-        icon: icon??Icons.check_circle,
+        icon: icon ?? Icons.check_circle,
       ),
     );
   }
@@ -66,18 +65,23 @@ class CustomSnackBar {
       backgroundColor: Colors.black87,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
       content: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Icon(icon, color: color, size: 26),
           ),
-          Text(
-            message,
-            style: const TextStyle(
-              color: Colors.white,
-              letterSpacing: 1.25,
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
+          Flexible(
+            child: Text(
+              message,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              style: const TextStyle(
+                color: Colors.white,
+                letterSpacing: 1.25,
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
             ),
           ),
         ],

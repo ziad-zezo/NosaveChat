@@ -22,7 +22,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "app_link_copied": MessageLookupByLibrary.simpleMessage(
+      "تم نسح رابط التطبيق",
+    ),
+    "app_share_message": MessageLookupByLibrary.simpleMessage(
+      "جرّب هذا التطبيق الرائع: ",
+    ),
     "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
+    "bottom_sheet_description": MessageLookupByLibrary.simpleMessage(
+      "ساعدنا على الانتشار بالمشاركة والتقييم!",
+    ),
+    "bottom_sheet_title": MessageLookupByLibrary.simpleMessage(
+      "هل أعجبك التطبيق؟",
+    ),
     "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "chat": MessageLookupByLibrary.simpleMessage("دردشة"),
     "chat_deleted": MessageLookupByLibrary.simpleMessage("تم حذف الدردشة"),
@@ -81,6 +93,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "ok": MessageLookupByLibrary.simpleMessage("حسناً"),
     "preferences": MessageLookupByLibrary.simpleMessage("التفضيلات"),
+    "rate_app": MessageLookupByLibrary.simpleMessage("قيّم التطبيق"),
+    "rate_app_subtitle": MessageLookupByLibrary.simpleMessage(
+      "قيّم التطبيق على متجر بلاي",
+    ),
     "recent_numbers": MessageLookupByLibrary.simpleMessage("الأرقام الحديثة"),
     "save_recent_numbers": MessageLookupByLibrary.simpleMessage(
       "حفظ الأرقام الأخيرة",
@@ -97,6 +113,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "select_language": MessageLookupByLibrary.simpleMessage("اختر اللغة"),
     "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
+    "share_app": MessageLookupByLibrary.simpleMessage("مشاركة التطبيق"),
+    "share_app_subtitle": MessageLookupByLibrary.simpleMessage(
+      "انسخ رابط التطبيق للمشاركة",
+    ),
     "start_chat": MessageLookupByLibrary.simpleMessage("ابدأ المحادثة"),
     "view_all": MessageLookupByLibrary.simpleMessage("عرض الكل"),
     "whatsapp_launch_failed": MessageLookupByLibrary.simpleMessage(

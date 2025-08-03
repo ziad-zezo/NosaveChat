@@ -6,7 +6,6 @@ import 'package:quick_chat/generated/l10n.dart';
 import 'package:quick_chat/helper_files/boxes.dart';
 import 'package:quick_chat/helper_files/default_values.dart';
 import 'package:quick_chat/helper_files/settings_helper.dart';
-import 'package:quick_chat/widgets/custom_tooltip.dart';
 import 'package:quick_chat/widgets/gap.dart';
 import 'package:quick_chat/widgets/section_header.dart';
 import 'package:quick_chat/widgets/settings_list_tile.dart';
@@ -139,7 +138,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       enableFeedback: true,
                       showDuration: const Duration(seconds: 3),
                       triggerMode: TooltipTriggerMode.tap,
-                      child: Icon(Icons.info),
+                      child: const Icon(Icons.info),
                     ),
                   ),
                   const VerticalGap(gap: 10),

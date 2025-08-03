@@ -24,5 +24,7 @@ subprojects {
     tasks.withType<JavaCompile>().configureEach {
         sourceCompatibility = "1.8"
         targetCompatibility = "1.8"
+
     }
+
 }

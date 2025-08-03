@@ -22,7 +22,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "app_link_copied": MessageLookupByLibrary.simpleMessage(
+      "App link copied to clipboard",
+    ),
+    "app_share_message": MessageLookupByLibrary.simpleMessage(
+      "Check out this awesome app: ",
+    ),
     "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
+    "bottom_sheet_description": MessageLookupByLibrary.simpleMessage(
+      "Help us grow by sharing and rating!",
+    ),
+    "bottom_sheet_title": MessageLookupByLibrary.simpleMessage(
+      "Enjoying the app?",
+    ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "chat": MessageLookupByLibrary.simpleMessage("Chat"),
     "chat_deleted": MessageLookupByLibrary.simpleMessage("Chat Deleted"),
@@ -50,6 +62,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "error_invalid_phone": MessageLookupByLibrary.simpleMessage(
       "Invalid Phone Number",
+    ),
+    "failed_to_copy_app_link": MessageLookupByLibrary.simpleMessage(
+      "Failed to copy app link",
     ),
     "failed_to_read_clipboard": MessageLookupByLibrary.simpleMessage(
       "An error occurred while reading the clipboard",
@@ -79,6 +94,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "ok": MessageLookupByLibrary.simpleMessage("OK"),
     "preferences": MessageLookupByLibrary.simpleMessage("Preferences"),
+    "rate_app": MessageLookupByLibrary.simpleMessage("Rate My App"),
+    "rate_app_subtitle": MessageLookupByLibrary.simpleMessage(
+      "Rate the app on the Play Store",
+    ),
     "recent_numbers": MessageLookupByLibrary.simpleMessage("Recent Numbers"),
     "save_recent_numbers": MessageLookupByLibrary.simpleMessage(
       "Save Recent Numbers",
@@ -95,6 +114,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "select_language": MessageLookupByLibrary.simpleMessage("Select Language"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "share_app": MessageLookupByLibrary.simpleMessage("Share My App"),
+    "share_app_subtitle": MessageLookupByLibrary.simpleMessage(
+      "Copy the app link to share",
+    ),
     "start_chat": MessageLookupByLibrary.simpleMessage("Start Chat"),
     "view_all": MessageLookupByLibrary.simpleMessage("View All"),
     "whatsapp_launch_failed": MessageLookupByLibrary.simpleMessage(

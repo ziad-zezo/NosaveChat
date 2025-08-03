@@ -45,5 +45,14 @@
   "enter_message": "Enter your message",
   "saved_message_hint": "This is a message you can insert manually when chatting by tapping the message icon.",
   "saved_message_empty": "No saved message found. Set it in Settings.",
-  "message_added": "Saved message added"
+  "message_added": "Saved message added",
+  "share_app": "Share My App",
+  "rate_app": "Rate My App",
+  "share_app_subtitle": "Copy the app link to share",
+  "rate_app_subtitle": "Rate the app on the Play Store",
+  "app_share_message": "Check out this awesome app: ",
+  "bottom_sheet_title": "Enjoying the app?",
+  "bottom_sheet_description": "Help us grow by sharing and rating!",
+  "app_link_copied": "App link copied to clipboard",
+  "failed_to_copy_app_link": "Failed to copy app link"
 }

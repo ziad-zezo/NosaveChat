@@ -44,7 +44,7 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("release")
-           // signingConfig = signingConfigs.getByName("debug")
+//            signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -55,9 +55,6 @@ android {
     }
 }
 
-//kotlin {
-//    jvmToolchain(11) // ✅ إضافة دعم JVM Toolchain رسمي لإجبار Kotlin على JVM 11
-//}
 
 flutter {
     source = "../.."
