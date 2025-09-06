@@ -8,7 +8,6 @@ import 'package:quick_chat/helper_files/custom_snack_bar.dart';
 import 'package:quick_chat/screens/history_page.dart';
 import 'package:quick_chat/screens/home_page.dart';
 import 'package:quick_chat/screens/settings_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.toggleTheme});
@@ -43,8 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final Brightness brightness = Theme.of(context).brightness;
 
     return Scaffold(
-      // extendBodyBehindAppBar: true,
-      extendBody: true,
       appBar: AppBar(
         scrolledUnderElevation: 0,
         title: const Text('NoSave Chat'),
@@ -229,32 +226,17 @@ class _HomeScreenState extends State<HomeScreen> {
               left:
                   MediaQuery.of(context).size.width / 2 -
                   30, // center horizontally
-              child: GestureDetector(
-                onLongPress: () async {
-                  Feedback.forLongPress(context);
-                  try {
-                    await launchUrl(
-                      Uri.parse('https://www.facebook.com/share/194wftyVh7/'),
-                      mode: LaunchMode.externalApplication,
-                    );
-                    if (!context.mounted) return;
-                  } catch (_) {
-                    if (!context.mounted) return;
-                  }
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  width: 55,
-                  height: 55,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: Colors.white,),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Image.asset('assets/app_icons/app_icon.png'),
-                  ),
+              child: Container(
+                width: 55,
+                height: 55,
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(color: Colors.white),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Image.asset('assets/app_icons/app_icon.png'),
                 ),
               ),
             ),

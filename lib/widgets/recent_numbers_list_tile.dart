@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:quick_chat/generated/l10n.dart';
 import 'package:quick_chat/helper_files/phone_utils.dart';
@@ -7,28 +6,34 @@ import 'package:quick_chat/hive/chat_history.dart';
 import 'package:quick_chat/widgets/custom_tooltip.dart';
 
 class RecentNumberListTile extends StatelessWidget {
-  const RecentNumberListTile({
-    super.key,
-    required this.chatHistory,
-  });
+  const RecentNumberListTile({super.key, required this.chatHistory});
   final ChatHistory chatHistory;
   @override
   Widget build(BuildContext context) {
     return CustomTooltip(
-      message: chatHistory.message.isEmpty?S.of(context).no_message:'${S.of(context).message_prefix} ${chatHistory.message}',
+      message: chatHistory.message.isEmpty
+          ? S.of(context).no_message
+          : '${S.of(context).message_prefix} ${chatHistory.message}',
 
       child: Padding(
         padding: const EdgeInsets.only(top: 8),
         child: ListTile(
-          onTap: ()async{
-            await PhoneUtils.launchWhatsApp(context: context, phone: chatHistory.phone, message: chatHistory.message,countryCode:chatHistory.countryCode!);
+          onTap: () async {
+            await PhoneUtils.launchWhatsApp(
+              context: context,
+              phone: chatHistory.phone,
+              message: chatHistory.message,
+              countryCode: chatHistory.countryCode!,
+            );
           },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
             side: const BorderSide(color: Colors.green),
           ),
           leading: const Icon(
-            FontAwesomeIcons.whatsapp,
+            //change for google play rejection
+            // FontAwesomeIcons.whatsapp,
+            Icons.message_rounded,
             size: 32,
             color: Colors.green,
           ),
@@ -42,7 +47,9 @@ class RecentNumberListTile extends StatelessWidget {
                 )
               : Text(
                   S.of(context).no_message,
-                  style: TextStyle(color: Colors.orange.shade700.withAlpha(200)),
+                  style: TextStyle(
+                    color: Colors.orange.shade700.withAlpha(200),
+                  ),
                 ),
           trailing: Text(
             DateFormat('MM/dd hh:mm a').format(chatHistory.timestamp),

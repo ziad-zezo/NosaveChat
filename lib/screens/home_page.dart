@@ -1,18 +1,17 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:image/image.dart' as img;
+
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:quick_chat/cubit/chat_history_cubit.dart';
 import 'package:quick_chat/generated/l10n.dart';
 import 'package:quick_chat/helper_files/boxes.dart';
 import 'package:quick_chat/helper_files/custom_snack_bar.dart';
 import 'package:quick_chat/helper_files/default_values.dart';
 import 'package:quick_chat/helper_files/phone_utils.dart';
+import 'package:quick_chat/helper_files/scan_image.dart';
 import 'package:quick_chat/widgets/clipboard_container.dart';
 import 'package:quick_chat/widgets/custom_tooltip.dart';
 import 'package:quick_chat/widgets/gap.dart';
@@ -149,7 +148,7 @@ class _HomePageState extends State<HomePage>
                           context,
                           message: S.of(context).saved_message_empty,
                         );
-                      }else{
+                      } else {
                         CustomSnackBar.showSuccessSnackBar(
                           context,
                           message: S.of(context).message_added,
@@ -296,70 +295,8 @@ class _HomePageState extends State<HomePage>
     _checkClipboard();
   }
 
-  Future<List<String>> extractPhoneNumbers(String text) async {
-    // Enhanced regular expression to match phone numbers more reliably
-    final phoneRegex = RegExp(
-      r'(\+?\d{1,3}[\s-]?)?(\d{3,4}[\s-]?\d{3,4}[\s-]?\d{3,4}|\d{8,14})',
-      caseSensitive: false,
-    );
-
-    // Find all matches in the text
-    final matches = phoneRegex.allMatches(text);
-
-    // Extract and format the matched numbers
-    final List<String> phoneNumbers = [];
-    for (final match in matches) {
-      String number = match.group(0)!;
-
-      // Remove all non-digit characters except leading +
-      number = number.replaceAll(RegExp(r'(?!^\+)[^\d]'), '');
-
-      // Validate the number length (adjust according to your needs)
-      if (number.length >= 8 && number.length <= 15) {
-        phoneNumbers.add(number);
-      }
-    }
-
-    return phoneNumbers;
-  }
-
-  Future<String> _scanImage(String imagePath) async {
-    final recognizer = TextRecognizer();
-
-    // Read the image file
-    final fileBytes = await File(imagePath).readAsBytes();
-    final image = img.decodeImage(fileBytes);
-
-    // In case image decoding fails
-    if (image == null) return '';
-
-    // Dynamically calculate crop sizes
-
-    // Crop the image
-    final cropped = img.copyCrop(
-      image,
-      x: 0,
-      y: 0, // cropTop,
-      width: image.width,
-      height: image.height, //croppedHeight,
-    );
-
-    // Convert cropped image to bytes
-    final croppedBytes = Uint8List.fromList(img.encodeJpg(cropped));
-
-    // Save to a temporary file
-    final tempDir = Directory.systemTemp;
-    final tempFile = await File('${tempDir.path}/cropped_image.jpg').create();
-    await tempFile.writeAsBytes(croppedBytes);
-
-    // Run text recognition
-    final inputImage = InputImage.fromFile(tempFile);
-    final recognizedText = await recognizer.processImage(inputImage);
-    return recognizedText.text;
-  }
-
   void _showDialog(String imagePath) async {
-    final text = await _scanImage(imagePath);
+    final text = await scanImage(imagePath);
     final numbers = await extractPhoneNumbers(text);
 
     if (!mounted) return;
@@ -493,7 +430,11 @@ class _HomePageState extends State<HomePage>
       message: S.of(context).saved_message,
       child: Icon(
         Icons.add_comment_sharp,
-        color: userSettings.savedMessage!=null&&userSettings.savedMessage!.isNotEmpty ? Colors.green : null,
+        color:
+            userSettings.savedMessage != null &&
+                userSettings.savedMessage!.isNotEmpty
+            ? Colors.green
+            : null,
       ),
     );
     return _messageController.text.isEmpty ? messageIcon : clearIcon;
