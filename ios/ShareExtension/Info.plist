@@ -1,18 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSExtension</key>
-	<dict>
-		<key>NSExtensionAttributes</key>
-		<dict>
-			<key>NSExtensionActivationRule</key>
-			<string>TRUEPREDICATE</string>
-		</dict>
-		<key>NSExtensionMainStoryboard</key>
-		<string>MainInterface</string>
-		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.share-services</string>
-	</dict>
+    <key>NSExtension</key>
+    <dict>
+        <key>NSExtensionAttributes</key>
+        <dict>
+            <key>NSExtensionActivationRule</key>
+            <dict>
+                <!-- Allow sharing images -->
+                <key>NSExtensionActivationSupportsImageWithMaxCount</key>
+                <integer>1</integer>
+
+                <!-- If you also want to support files/URLs, add these: -->
+                <!-- <key>NSExtensionActivationSupportsFileWithMaxCount</key> -->
+                <!-- <integer>100</integer> -->
+                <!-- <key>NSExtensionActivationSupportsWebURLWithMaxCount</key> -->
+                <!-- <integer>1</integer> -->
+            </dict>
+
+            <key>PHSupportedMediaTypes</key>
+            <array>
+                <string>Video</string>
+                <string>Image</string>
+            </array>
+        </dict>
+        <key>NSExtensionMainStoryboard</key>
+        <string>MainInterface</string>
+        <key>NSExtensionPointIdentifier</key>
+        <string>com.apple.share-services</string>
+    </dict>
+
+    <key>AppGroupIdentifier</key>
+    <string>group.com.zoz.nosavechat</string>  <!-- e.g. group.com.example.myapp -->
+
+    <key>HostAppBundleIdentifier</key>
+    <string>com.zoz.nosavechat</string>  <!-- e.g. com.example.myapp -->
+
+    <key>CFBundleVersion</key>
+    <string>$(FLUTTER_BUILD_NUMBER)</string>
+    <key>CFBundleShortVersionString</key>
+    <string>$(FLUTTER_BUILD_NAME)</string>
 </dict>
 </plist>

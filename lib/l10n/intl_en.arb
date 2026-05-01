@@ -12,7 +12,7 @@
   "chat_history": "Chat History",
   "delete": "Delete",
   "chat_deleted": "Chat Deleted",
-  "no_chat_history": "No Chat History",
+  "no_chat_history": "Empty",
   "confirm_deletion": "Confirm Deletion",
   "confirm_delete_warning": "Are you sure you want to delete all chat history? This action cannot be undone.",
   "cancel": "Cancel",

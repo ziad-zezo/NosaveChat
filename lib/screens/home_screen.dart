@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Divider(),
                     const SizedBox(height: 5),
 
-                    /// Share Button
+                    /*   /// Share Button
                     ListTile(
                       leading: const Icon(Icons.share, color: Colors.blue),
                       title: Text(S.of(context).share_app),
@@ -190,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
                         Navigator.pop(context);
                       },
-                    ),
+                    ), */
 
                     /// Rate Button
                     ListTile(

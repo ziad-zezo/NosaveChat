@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,7 +83,7 @@ class _HomePageState extends State<HomePage>
     super.build(context);
     return GestureDetector(
       onTap: () => _unfocus(),
-      child: RefreshIndicator(
+      child: RefreshIndicator.adaptive(
         onRefresh: _refresh,
         color: Colors.green,
         displacement: 0,
