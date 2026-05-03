@@ -162,35 +162,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Divider(),
                     const SizedBox(height: 5),
 
-                    /*   /// Share Button
-                    ListTile(
-                      leading: const Icon(Icons.share, color: Colors.blue),
-                      title: Text(S.of(context).share_app),
-                      subtitle: Text(S.of(context).share_app_subtitle),
-
-                      onTap: () async {
-                        const appLink =
-                            'https://play.google.com/store/apps/details?id=com.zoz.nosavechat';
-                        try {
-                          await Clipboard.setData(
-                            const ClipboardData(text: appLink),
-                          );
-                          if (!context.mounted) return;
-                          CustomSnackBar.showSuccessSnackBar(
-                            context,
-                            message: S.of(context).app_link_copied,
-                            icon: Icons.copy,
-                          );
-                        } catch (e) {
-                          if (!context.mounted) return;
-                          CustomSnackBar.showErrorSnackBar(
-                            context,
-                            message: S.of(context).failed_to_copy_app_link,
-                          );
-                        }
-                        Navigator.pop(context);
-                      },
-                    ), */
 
                     /// Rate Button
                     ListTile(
