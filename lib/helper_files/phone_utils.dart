@@ -44,33 +44,48 @@ class PhoneUtils {
 
       final encodedMessage = Uri.encodeComponent(message);
 
-      final url = 'https://wa.me/$fullPhone?text=$encodedMessage';
+      final url = 'whatsapp://send?phone=$fullPhone&text=$encodedMessage';
       final urlParsed = Uri.parse(url);
 
-      await launchUrl(urlParsed);
+      await launchUrl(urlParsed, mode: LaunchMode.externalApplication);
+      debugPrint('Launching WhatsApp with URL: $url');
       if (context.mounted) {
-        CustomSnackBar.showSuccessSnackBar(context,message: S.of(context).chat_started);
+        CustomSnackBar.showSuccessSnackBar(
+          context,
+          message: S.of(context).chat_started,
+        );
       }
       return urlParsed.toString();
     } catch (e) {
       if (context.mounted) {
-        CustomSnackBar.showErrorSnackBar(context,message: S.of(context).whatsapp_launch_failed);
-
+        CustomSnackBar.showErrorSnackBar(
+          context,
+          message: S.of(context).whatsapp_launch_failed,
+        );
       }
-      }
+    }
     return null;
   }
-  static Future<void> chat({required BuildContext context, required String phoneNumber,String message='',required String countryCode}) async {
+
+  static Future<void> chat({
+    required BuildContext context,
+    required String phoneNumber,
+    String message = '',
+    required String countryCode,
+  }) async {
     final String? whatsappLink = await PhoneUtils.launchWhatsApp(
       context: context,
       phone: phoneNumber,
       message: message,
       countryCode: countryCode,
     );
-    if (!context.mounted || whatsappLink == null || ! userSettings.saveRecentNumber) return;
+    if (!context.mounted ||
+        whatsappLink == null ||
+        !userSettings.saveRecentNumber)
+      return;
     context.read<ChatHistoryCubit>().addChatEntry(
       phone: phoneNumber,
-      message:message,
+      message: message,
       whatsappLink: whatsappLink,
       countryCode: countryCode,
     );

@@ -28,7 +28,7 @@ class RecentNumberListTile extends StatelessWidget {
           },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
-            side: const BorderSide(color: Colors.green),
+            // side: const BorderSide(color: Colors.green, width: 1),
           ),
           leading: const Icon(
             //change for google play rejection
